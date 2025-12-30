@@ -1,0 +1,123 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: root-app
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: root-app
+  template:
+    metadata:
+      labels:
+        app: root-app
+    spec:
+      containers:
+      - name: root-service
+        image: YOUR_DOCKER_USERNAME/root-service:latest
+        ports:
+        - containerPort: 8080
+        env:
+        - name: ROOT_APP_NAME
+          valueFrom:
+            configMapKeyRef:
+              name: root-config
+              key: ROOT_APP_NAME
+        - name: ROOT_BIND_PORT
+          valueFrom:
+            configMapKeyRef:
+              name: root-config
+              key: ROOT_BIND_PORT
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: api-app
+spec:
+  replicas: 4
+  selector:
+    matchLabels:
+      app: api-app
+  template:
+    metadata:
+      labels:
+        app: api-app
+    spec:
+      containers:
+      - name: api-service
+        image: YOUR_DOCKER_USERNAME/api-service:latest
+        ports:
+        - containerPort: 8081
+        env:
+        - name: API_APP_NAME
+          valueFrom:
+            configMapKeyRef:
+              name: api-config
+              key: API_APP_NAME
+        - name: API_BIND_PORT
+          valueFrom:
+            configMapKeyRef:
+              name: api-config
+              key: API_BIND_PORT
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: info-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: info-app
+  template:
+    metadata:
+      labels:
+        app: info-app
+    spec:
+      containers:
+      - name: info-service
+        image: YOUR_DOCKER_USERNAME/info-service:latest
+        ports:
+        - containerPort: 8082
+        env:
+        - name: INFO_APP_NAME
+          valueFrom:
+            configMapKeyRef:
+              name: info-config
+              key: INFO_APP_NAME
+        - name: INFO_BIND_PORT
+          valueFrom:
+            configMapKeyRef:
+              name: info-config
+              key: INFO_BIND_PORT
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: login-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: login-app
+  template:
+    metadata:
+      labels:
+        app: login-app
+    spec:
+      containers:
+      - name: login-service
+        image: YOUR_DOCKER_USERNAME/login-service:latest
+        ports:
+        - containerPort: 8083
+        env:
+        - name: LOGIN_APP_NAME
+          valueFrom:
+            configMapKeyRef:
+              name: login-config
+              key: LOGIN_APP_NAME
+        - name: LOGIN_BIND_PORT
+          valueFrom:
+            configMapKeyRef:
+              name: login-config
+              key: LOGIN_BIND_PORT
