@@ -1,4 +1,4 @@
-FROM golang:1.21-alpine as builder
+FROM golang:1.21-alpine AS builder
 WORKDIR /app
 RUN echo 'module kube-itog' > go.mod && \
     echo 'go 1.21' >> go.mod

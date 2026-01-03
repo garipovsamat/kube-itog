@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: root-service
-        image: YOUR_DOCKER_USERNAME/root-service:latest
+        image: ${{ vars.DOCKER_USERNAME }}/root-service:${{ github.ref_name }}
         ports:
         - containerPort: 8080
         env:
@@ -45,7 +45,7 @@ spec:
     spec:
       containers:
       - name: api-service
-        image: YOUR_DOCKER_USERNAME/api-service:latest
+        image: samatgaripov/api-service:latest
         ports:
         - containerPort: 8081
         env:
@@ -76,7 +76,7 @@ spec:
     spec:
       containers:
       - name: info-service
-        image: YOUR_DOCKER_USERNAME/info-service:latest
+        image: samatgaripov/info-service:latest
         ports:
         - containerPort: 8082
         env:
@@ -107,7 +107,7 @@ spec:
     spec:
       containers:
       - name: login-service
-        image: YOUR_DOCKER_USERNAME/login-service:latest
+        image: samatgaripov/login-service:latest
         ports:
         - containerPort: 8083
         env:

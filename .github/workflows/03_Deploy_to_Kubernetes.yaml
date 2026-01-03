@@ -13,7 +13,7 @@ jobs:
       - name: Set kubeconfig
         run: |
           mkdir -p $HOME/.kube
-          echo "${{ secrets.KUBE_CONFIG }}" | base64 -d > $HOME/.kube/config  # для GitHub лучше base64
+          echo "${{ secrets.KUBE_CONFIG }}" | base64 -d > $HOME/.kube/config
       - name: Deploy to cluster
         run: |
           kubectl apply -f deployments/k8s/configmaps.yaml
